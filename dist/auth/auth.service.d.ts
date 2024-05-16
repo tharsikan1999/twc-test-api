@@ -1,5 +1,5 @@
 import { PrismaService } from "src/prisma/prisma.service";
-import { RegisterDto } from "src/dtos";
+import { LoginDto, RegisterDto } from "src/dtos";
 export declare class AuthService {
     private prisma;
     constructor(prisma: PrismaService);
@@ -10,4 +10,5 @@ export declare class AuthService {
         createdAt: Date;
         updatedAt: Date;
     } | "Email already exists">;
+    login(loginDto: LoginDto): Promise<"User not found" | "Invalid password" | "Logged in" | "Something went wrong">;
 }

@@ -36,6 +36,27 @@ let AuthService = class AuthService {
             throw e;
         }
     }
+    async login(loginDto) {
+        try {
+            const user = await this.prisma.user.findUnique({
+                where: {
+                    email: loginDto.email,
+                },
+            });
+            if (!user) {
+                return "User not found";
+            }
+            const valid = await argon2.verify(user.password, loginDto.password);
+            if (!valid) {
+                return "Invalid password";
+            }
+            delete user.password;
+            return "Logged in";
+        }
+        catch (e) {
+            return "Something went wrong";
+        }
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
