@@ -11,13 +11,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PrismaService = void 0;
 const common_1 = require("@nestjs/common");
+const config_1 = require("@nestjs/config");
 const client_1 = require("@prisma/client");
 let PrismaService = class PrismaService extends client_1.PrismaClient {
-    constructor() {
+    constructor(config) {
         super({
             datasources: {
                 db: {
-                    url: "mysql://root:@127.0.0.1:3306/twc",
+                    url: config.get("DATABASE_URL"),
                 },
             },
         });
@@ -26,6 +27,6 @@ let PrismaService = class PrismaService extends client_1.PrismaClient {
 exports.PrismaService = PrismaService;
 exports.PrismaService = PrismaService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [config_1.ConfigService])
 ], PrismaService);
 //# sourceMappingURL=prisma.service.js.map

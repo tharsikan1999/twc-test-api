@@ -13,9 +13,13 @@ exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
 const argon2 = require("argon2");
+const config_1 = require("@nestjs/config");
+const jwt_1 = require("@nestjs/jwt");
 let AuthService = class AuthService {
-    constructor(prisma) {
+    constructor(prisma, jwt, config) {
         this.prisma = prisma;
+        this.jwt = jwt;
+        this.config = config;
     }
     async register(registerDto) {
         registerDto.password = await argon2.hash(registerDto.password);
@@ -51,16 +55,27 @@ let AuthService = class AuthService {
                 return "Invalid password";
             }
             delete user.password;
-            return "Logged in";
+            return this.signToken(user.id, user.email);
         }
         catch (e) {
             return "Something went wrong";
         }
     }
+    async signToken(userID, email) {
+        const data = { userID, email };
+        const secret = this.config.get("JWT_SECRET");
+        const token = await this.jwt.signAsync(data, {
+            expiresIn: "10m",
+            secret: secret,
+        });
+        return { accessToken: token };
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService,
+        jwt_1.JwtService,
+        config_1.ConfigService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

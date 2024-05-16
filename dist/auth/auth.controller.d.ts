@@ -11,5 +11,7 @@ export declare class AuthController {
         createdAt: Date;
         updatedAt: Date;
     } | "Email already exists">;
-    login(loginDto: LoginDto): Promise<"User not found" | "Invalid password" | "Logged in" | "Something went wrong">;
+    login(loginDto: LoginDto): Promise<"User not found" | "Invalid password" | {
+        accessToken: string;
+    } | "Something went wrong">;
 }
