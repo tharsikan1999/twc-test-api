@@ -65,7 +65,7 @@ let AuthService = class AuthService {
         const data = { userID, email };
         const secret = this.config.get("JWT_SECRET");
         const token = await this.jwt.signAsync(data, {
-            expiresIn: "10m",
+            expiresIn: "1h",
             secret: secret,
         });
         return { accessToken: token };

@@ -9,6 +9,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ContactsService = void 0;
 const common_1 = require("@nestjs/common");
 let ContactsService = class ContactsService {
+    getContacts() {
+        return "All contacts will be returned from here.";
+    }
 };
 exports.ContactsService = ContactsService;
 exports.ContactsService = ContactsService = __decorate([
