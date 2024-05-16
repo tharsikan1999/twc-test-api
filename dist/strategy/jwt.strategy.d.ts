@@ -8,8 +8,8 @@ export declare class jwtStrategy extends jwtStrategy_base {
         userID: string;
         email: string;
     }): Promise<{
-        id: string;
         email: string;
+        id: string;
         createdAt: Date;
         updatedAt: Date;
     }>;
