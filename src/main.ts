@@ -7,11 +7,13 @@ async function bootstrap() {
 
   // Enable CORS
   app.enableCors({
-    origin: "http://localhost:3001", // specify allowed origin(s)
+    origin: ["http://localhost:3001"], // specify allowed origin(s)
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-    allowedHeaders: "Content-Type, Accept",
+    allowedHeaders: "Content-Type, Accept, Authorization", // add 'Authorization' here
     credentials: true, // if you need to allow cookies
   });
+
+  app.enableCors();
 
   app.useGlobalPipes(
     new ValidationPipe({
@@ -23,6 +25,7 @@ async function bootstrap() {
       },
     })
   );
+
   await app.listen(3333);
 }
 bootstrap();
