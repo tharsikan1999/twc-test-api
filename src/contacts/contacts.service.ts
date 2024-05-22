@@ -34,9 +34,7 @@ export class ContactsService {
       });
 
       if (!contacts || contacts.length === 0) {
-        throw new NotFoundException(
-          "No contacts found for the provided user. Please create contacts."
-        );
+        return "No contacts found for the provided user. Please create contacts.";
       }
 
       return contacts;

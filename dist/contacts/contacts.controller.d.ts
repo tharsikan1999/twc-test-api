@@ -12,7 +12,7 @@ export declare class ContactsController {
         createdAt: Date;
         updatedAt: Date;
         userId: string;
-    }[]>;
+    }[] | "No contacts found for the provided user. Please create contacts.">;
     addContact(id: string, contact: ContactDto): Promise<string>;
     updateContact(contactId: string, userId: string, contact: ContactDto): Promise<string>;
     deleteContactById(contactId: string, userId: string): Promise<string>;
